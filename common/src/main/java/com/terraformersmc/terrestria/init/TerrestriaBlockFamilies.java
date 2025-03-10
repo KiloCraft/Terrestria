@@ -25,7 +25,19 @@ public class TerrestriaBlockFamilies {
 
 
 	private static BlockFamily fromWoodBlocks(WoodBlocks woodBlocks) {
-		return null;
+		return BlockFamilies.register(woodBlocks.planks)
+//			.button(woodBlocks.button)
+//			.fence(woodBlocks.fence)
+//			.fenceGate(woodBlocks.fenceGate)
+//			.pressurePlate(woodBlocks.pressurePlate)
+//			.sign(woodBlocks.sign, woodBlocks.wallSign)
+			.slab(woodBlocks.slab)
+			.stairs(woodBlocks.stairs)
+			.door(woodBlocks.door)
+			.trapdoor(woodBlocks.trapdoor)
+			.group("wooden")
+			.unlockCriterionName("has_planks")
+			.build();
 	}
 
 	private static BlockFamily plainFromStoneBlocks(StoneBlocks stoneBlocks) {

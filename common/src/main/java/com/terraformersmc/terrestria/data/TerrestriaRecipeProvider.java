@@ -81,32 +81,36 @@ public class TerrestriaRecipeProvider extends FabricRecipeProvider {
 				generateStone(exporter, TerrestriaItems.VOLCANIC_ROCK);
 			}
 
-		private void generateWood(RecipeExporter exporter, BlockFamily family, WoodItems woodItem, TagKey<Item> logsTag) {
-			if (woodItem.fallbackPlanks != null) {
-				createShapeless(RecipeCategory.BUILDING_BLOCKS, woodItem.fallbackPlanks, 4)
-						.input(logsTag).group("planks").criterion("has_logs", conditionsFromTag(logsTag))
-					.offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of("terrestria", getItemPath(woodItem.log) + "_to_planks")));
-			}
-			// leaf piles are an optional wood feature
+			private void generateWood(RecipeExporter exporter, BlockFamily blockFamily, WoodItems woodItem, TagKey<Item> logsTag) {
+				// We don't really use feature sets, so this is good enough...
+				FeatureSet enabledFeatures = FeatureSet.of(FeatureFlags.VANILLA);
 
-				// some woodItem with no real wood have wood set to log
+				generateFamily(blockFamily, enabledFeatures);
+
+				offerPlanksRecipe(woodItem.planks, logsTag, 4);
+
+				// Some WoodItems with no real wood have wood set to log
 				if (woodItem.hasWood()) {
-					createShaped(RecipeCategory.BUILDING_BLOCKS, woodItem.wood, 3)
-							.group("bark")
-							.pattern("LL")
-							.pattern("LL")
-							.input('L', woodItem.log)
-							.criterion("has_logs", InventoryChangedCriterion.Conditions.items(woodItem.log))
-							.offerTo(exporter);
-
-					createShaped(RecipeCategory.BUILDING_BLOCKS, woodItem.strippedWood, 3)
-							.group("bark")
-							.pattern("LL")
-							.pattern("LL")
-							.input('L', woodItem.strippedLog)
-							.criterion("has_logs", InventoryChangedCriterion.Conditions.items(woodItem.strippedLog))
-							.offerTo(exporter);
+					offerBarkBlockRecipe(woodItem.wood, woodItem.log);
+					offerBarkBlockRecipe(woodItem.strippedWood, woodItem.strippedLog);
 				}
+
+				// Boats are an optional wood feature
+//				if (woodItem.hasBoat()) {
+//					offerBoatRecipe(woodItem.boat, woodItem.planks);
+//					offerChestBoatRecipe(woodItem.chestBoat, woodItem.boat);
+//				}
+
+//				offerHangingSignRecipe(woodItem.hangingSign, woodItem.strippedLog);
+
+				// Leaf piles are an optional wood feature
+//				if (woodItem.hasLeafPile()) {
+//					createShaped(RecipeCategory.DECORATIONS, woodItem.leafPile, 16)
+//						.pattern("LL")
+//						.input('L', woodItem.leaves)
+//						.criterion("has_leaves", this.conditionsFromItem(woodItem.leaves))
+//						.offerTo(exporter);
+//				}
 			}
 
 			private void generateStone(RecipeExporter exporter, StoneItems stoneItem) {

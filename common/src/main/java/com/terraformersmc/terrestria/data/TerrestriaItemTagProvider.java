@@ -88,8 +88,8 @@ public class TerrestriaItemTagProvider extends FabricTagProvider.ItemTagProvider
 		 * Local item tags
 		 */
 		getOrCreateTagBuilder(TerrestriaItemTags.MOSSY_INGREDIENTS)
-				.add(Items.MOSS_BLOCK)
-				.add(Items.VINE);
+			.add(Items.MOSS_BLOCK)
+			.add(Items.VINE);
 
 		copy(TerrestriaBlockTags.PLANKS_THAT_BURN, TerrestriaItemTags.PLANKS_THAT_BURN);
 
@@ -124,6 +124,7 @@ public class TerrestriaItemTagProvider extends FabricTagProvider.ItemTagProvider
 		 */
 		copy(TerrestriaBlockTags.CYPRESS_LOGS, TerrestriaItemTags.CYPRESS_LOGS);
 		copy(TerrestriaBlockTags.HEMLOCK_LOGS, TerrestriaItemTags.HEMLOCK_LOGS);
+//		copy(TerrestriaBlockTags.JAPANESE_MAPLE_LOGS, TerrestriaItemTags.JAPANESE_MAPLE_LOGS);
 		copy(TerrestriaBlockTags.RAINBOW_EUCALYPTUS_LOGS, TerrestriaItemTags.RAINBOW_EUCALYPTUS_LOGS);
 		copy(TerrestriaBlockTags.REDWOOD_LOGS, TerrestriaItemTags.REDWOOD_LOGS);
 		copy(TerrestriaBlockTags.RUBBER_LOGS, TerrestriaItemTags.RUBBER_LOGS);
@@ -136,9 +137,11 @@ public class TerrestriaItemTagProvider extends FabricTagProvider.ItemTagProvider
 		 */
 		addWood(TerrestriaItems.CYPRESS);
 		addWood(TerrestriaItems.HEMLOCK);
+//		addWood(TerrestriaItems.JAPANESE_MAPLE);
 		addWood(TerrestriaItems.RAINBOW_EUCALYPTUS);
 		addWood(TerrestriaItems.REDWOOD);
 		addWood(TerrestriaItems.RUBBER);
+//		addWood(TerrestriaItems.SAKURA);
 		addWood(TerrestriaItems.WILLOW);
 		addWood(TerrestriaItems.YUCCA_PALM);
 
@@ -162,7 +165,12 @@ public class TerrestriaItemTagProvider extends FabricTagProvider.ItemTagProvider
 
 	private void addWood(WoodItems woodItem) {
 		// Add boats if they exist via the WoodItem.
-
+//		if (woodItem.boat != null) {
+//			getOrCreateTagBuilder(ItemTags.BOATS).add(woodItem.boat);
+//		}
+//		if (woodItem.chestBoat != null) {
+//			getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(woodItem.chestBoat);
+//		}
 	}
 
 	@Override

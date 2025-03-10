@@ -80,9 +80,11 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 		// WoodBlocks
 		this.registerWoodBlocks(generator, TerrestriaBlocks.CYPRESS, TerrestriaBlockFamilies.CYPRESS, TerrestriaBlocks.CYPRESS_SAPLING, TerrestriaBlocks.POTTED_CYPRESS_SAPLING);
 		this.registerWoodBlocks(generator, TerrestriaBlocks.HEMLOCK, TerrestriaBlockFamilies.HEMLOCK, TerrestriaBlocks.HEMLOCK_SAPLING, TerrestriaBlocks.POTTED_HEMLOCK_SAPLING);
+//		this.registerWoodBlocks(generator, TerrestriaBlocks.JAPANESE_MAPLE, TerrestriaBlockFamilies.JAPANESE_MAPLE, TerrestriaBlocks.JAPANESE_MAPLE_SAPLING, TerrestriaBlocks.POTTED_JAPANESE_MAPLE_SAPLING);
 		this.registerWoodBlocks(generator, TerrestriaBlocks.RAINBOW_EUCALYPTUS, TerrestriaBlockFamilies.RAINBOW_EUCALYPTUS, TerrestriaBlocks.RAINBOW_EUCALYPTUS_SAPLING, TerrestriaBlocks.POTTED_RAINBOW_EUCALYPTUS_SAPLING);
 		this.registerWoodBlocks(generator, TerrestriaBlocks.REDWOOD, TerrestriaBlockFamilies.REDWOOD, TerrestriaBlocks.REDWOOD_SAPLING, TerrestriaBlocks.POTTED_REDWOOD_SAPLING);
 		this.registerWoodBlocks(generator, TerrestriaBlocks.RUBBER, TerrestriaBlockFamilies.RUBBER, TerrestriaBlocks.RUBBER_SAPLING, TerrestriaBlocks.POTTED_RUBBER_SAPLING);
+//		this.registerWoodBlocks(generator, TerrestriaBlocks.SAKURA, TerrestriaBlockFamilies.SAKURA, TerrestriaBlocks.SAKURA_SAPLING, TerrestriaBlocks.POTTED_SAKURA_SAPLING);
 		this.registerWoodBlocks(generator, TerrestriaBlocks.WILLOW, TerrestriaBlockFamilies.WILLOW, TerrestriaBlocks.WILLOW_SAPLING, TerrestriaBlocks.POTTED_WILLOW_SAPLING);
 		this.registerWoodBlocks(generator, TerrestriaBlocks.YUCCA_PALM, TerrestriaBlockFamilies.YUCCA_PALM, TerrestriaBlocks.YUCCA_PALM_SAPLING, TerrestriaBlocks.POTTED_YUCCA_PALM_SAPLING);
 
@@ -99,10 +101,17 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 
 		// Non-WoodBlocks small trunks
 		this.registerSmallLog(generator, TerrestriaBlocks.SAGUARO_CACTUS, null);
+//		this.registerSmallLog(generator, TerrestriaBlocks.SMALL_OAK_LOG, Blocks.OAK_LOG, Blocks.OAK_LEAVES);
+//		this.registerSmallLog(generator, TerrestriaBlocks.STRIPPED_SMALL_OAK_LOG, Blocks.STRIPPED_OAK_LOG, Blocks.OAK_LEAVES);
 		// Log item registration for small logs is in the item registration
 
 		// Wood odds and ends
 		generator.registerFlowerPotPlantAndItem(TerrestriaBlocks.BRYCE_SAPLING, TerrestriaBlocks.POTTED_BRYCE_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
+//		generator.registerSingleton(TerrestriaBlocks.DARK_JAPANESE_MAPLE_LEAVES, TexturedModel.LEAVES);
+//		this.registerBlockItemModel(generator, TerrestriaBlocks.DARK_JAPANESE_MAPLE_LEAVES);
+//		generator.registerFlowerPotPlantAndItem(TerrestriaBlocks.DARK_JAPANESE_MAPLE_SAPLING, TerrestriaBlocks.POTTED_DARK_JAPANESE_MAPLE_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
+//		generator.registerTintedBlockAndItem(TerrestriaBlocks.JAPANESE_MAPLE_SHRUB_LEAVES, TexturedModel.LEAVES, FoliageColors.DEFAULT);
+//		generator.registerFlowerPotPlantAndItem(TerrestriaBlocks.JAPANESE_MAPLE_SHRUB_SAPLING, TerrestriaBlocks.POTTED_JAPANESE_MAPLE_SHRUB_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
 		generator.registerSingleton(TerrestriaBlocks.JUNGLE_PALM_LEAVES, TexturedModel.LEAVES);
 		this.registerBlockItemModel(generator, TerrestriaBlocks.JUNGLE_PALM_LEAVES);
 		generator.registerFlowerPotPlantAndItem(TerrestriaBlocks.JUNGLE_PALM_SAPLING, TerrestriaBlocks.POTTED_JUNGLE_PALM_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
@@ -130,16 +139,21 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 	@Override
 	public void generateItemModels(ItemModelGenerator generator) {
 		// Small logs
+//		this.registerSmallLogItemModels(generator, TerrestriaBlocks.SAKURA);
+//		this.registerSmallLogItemModels(generator, TerrestriaBlocks.YUCCA_PALM);
 
 		this.registerSmallLogItemModel(generator, TerrestriaBlocks.SAGUARO_CACTUS);
-
+//		this.registerSmallLogItemModel(generator, TerrestriaBlocks.SMALL_OAK_LOG, Blocks.OAK_LOG);
+//		this.registerSmallLogItemModel(generator, TerrestriaBlocks.STRIPPED_SMALL_OAK_LOG, Blocks.STRIPPED_OAK_LOG);
 
 		// Boats
 		this.registerBoatItemModels(generator, TerrestriaItems.CYPRESS);
 		this.registerBoatItemModels(generator, TerrestriaItems.HEMLOCK);
+//		this.registerBoatItemModels(generator, TerrestriaItems.JAPANESE_MAPLE);
 		this.registerBoatItemModels(generator, TerrestriaItems.RAINBOW_EUCALYPTUS);
 		this.registerBoatItemModels(generator, TerrestriaItems.REDWOOD);
 		this.registerBoatItemModels(generator, TerrestriaItems.RUBBER);
+//		this.registerBoatItemModels(generator, TerrestriaItems.SAKURA);
 		this.registerBoatItemModels(generator, TerrestriaItems.WILLOW);
 		this.registerBoatItemModels(generator, TerrestriaItems.YUCCA_PALM);
 
@@ -302,15 +316,18 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 
 	private void registerWoodBlocks(BlockStateModelGenerator generator, WoodBlocks woodBlocks, BlockFamily blockFamily, Block sapling, Block pottedSapling) {
 		// Vanilla part of WoodBlocks
-		//generator.registerCubeAllModelTexturePool(blockFamily.getBaseBlock()).family(blockFamily);
+		generator.registerCubeAllModelTexturePool(blockFamily.getBaseBlock()).family(blockFamily);
+//		this.registerBlockItemModel(generator, woodBlocks.fenceGate);
+		this.registerBlockItemModel(generator, woodBlocks.planks);
+//		this.registerBlockItemModel(generator, woodBlocks.pressurePlate);
 
-		//if (woodBlocks.getSize().equals(WoodBlocks.LogSize.SMALL)) {
+		if (false/*woodBlocks.getSize().equals(WoodBlocks.LogSize.SMALL)*/) {
 			// This case is for small log trees that do have a full WoodBlocks
-			//this.registerSmallLog(generator, woodBlocks.log, woodBlocks.leaves);
-			//this.registerSmallLog(generator, woodBlocks.strippedLog, woodBlocks.leaves);
+			this.registerSmallLog(generator, woodBlocks.log, woodBlocks.leaves);
+			this.registerSmallLog(generator, woodBlocks.strippedLog, woodBlocks.leaves);
 
 			// Log item registration for small logs is in the item registration
-		//} else {
+		} else {
 			// This is what vanilla's BlockFamily-based code does
 			if (woodBlocks.hasWood()) {
 				generator.registerLog(woodBlocks.log).log(woodBlocks.log).wood(woodBlocks.wood);
@@ -325,7 +342,8 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 
 			this.registerBlockItemModel(generator, woodBlocks.log);
 			this.registerBlockItemModel(generator, woodBlocks.strippedLog);
-		//}
+		}
+//		generator.registerHangingSign(blockFamily.getBaseBlock(), woodBlocks.hangingSign, woodBlocks.wallHangingSign);
 		if (sapling != null) {
 			generator.registerFlowerPotPlantAndItem(sapling, pottedSapling, BlockStateModelGenerator.CrossType.NOT_TINTED);
 		}
@@ -340,7 +358,13 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 		}
 
 		// Extra parts of WoodBlocks
-
+//		if (woodBlocks.hasQuarterLog()) {
+//			this.registerQuarterLog(generator, woodBlocks.quarterLog, woodBlocks.log);
+//			this.registerQuarterLog(generator, woodBlocks.strippedQuarterLog, woodBlocks.strippedLog);
+//		}
+//		if (woodBlocks.hasLeafPile()) {
+//			this.registerLeafPile(generator, woodBlocks.leafPile, woodBlocks.leaves);
+//		}
 	}
 
 
@@ -477,8 +501,10 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 	}
 
 	private void registerBoatItemModels(ItemModelGenerator generator, WoodItems woodItems) {
-		if (woodItems.hasBoat()) {
-		}
+//		if (woodItems.hasBoat()) {
+//			generator.register(woodItems.boat, Models.GENERATED);
+//			generator.register(woodItems.chestBoat, Models.GENERATED);
+//		}
 	}
 
 	@Override

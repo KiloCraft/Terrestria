@@ -65,16 +65,6 @@ public class TerrestriaItems {
 		RAINBOW_EUCALYPTUS = WoodItems.register("rainbow_eucalyptus", TerrestriaBlocks.RAINBOW_EUCALYPTUS);
 		YUCCA_PALM = WoodItems.register("yucca_palm", TerrestriaBlocks.YUCCA_PALM);
 
-		{
-			REDWOOD.fallbackPlanks = Items.MANGROVE_PLANKS;
-			HEMLOCK.fallbackPlanks = Items.BIRCH_PLANKS;
-			RUBBER.fallbackPlanks = Items.BIRCH_PLANKS;
-			CYPRESS.fallbackPlanks = Items.BIRCH_PLANKS;
-			WILLOW.fallbackPlanks = Items.BIRCH_PLANKS;
-			RAINBOW_EUCALYPTUS.fallbackPlanks = Items.JUNGLE_PLANKS;
-			YUCCA_PALM.fallbackPlanks = Items.JUNGLE_PLANKS;
-		}
-
 		SAGUARO_CACTUS = TerrestriaRegistry.registerBlockItem("saguaro_cactus", TerrestriaBlocks.SAGUARO_CACTUS);
 
 		JUNGLE_PALM_LEAVES = TerrestriaRegistry.registerBlockItem("jungle_palm_leaves", TerrestriaBlocks.JUNGLE_PALM_LEAVES);
