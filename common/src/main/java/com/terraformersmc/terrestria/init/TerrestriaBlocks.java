@@ -6,6 +6,7 @@ import com.terraformersmc.terraform.dirt.api.block.TerraformFarmlandBlock;
 import com.terraformersmc.terraform.dirt.api.block.TerraformGrassBlock;
 import com.terraformersmc.terraform.dirt.api.block.TerraformSnowyBlock;
 import com.terraformersmc.terraform.dirt.api.registry.TerraformDirtRegistry;
+import com.terraformersmc.terraform.leaves.api.block.ColoredParticleLeavesBlock;
 import com.terraformersmc.terraform.tree.api.block.TerraformDesertSaplingBlock;
 import com.terraformersmc.terraform.wood.api.block.BareSmallLogBlock;
 import com.terraformersmc.terraform.wood.api.block.PillarLogHelper;
@@ -104,7 +105,7 @@ public class TerrestriaBlocks {
 		SAGUARO_CACTUS = TerrestriaRegistry.register("saguaro_cactus", SaguaroCactusBlock::new, SaguaroCactusBlock.createSettings(Blocks.CACTUS.getDefaultMapColor()));
 
 		// strange leaves
-		JUNGLE_PALM_LEAVES = TerrestriaRegistry.register("jungle_palm_leaves", LeavesBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).allowsSpawning(TerrestriaBlocks::canSpawnOnLeaves).suffocates(TerrestriaBlocks::never).blockVision(TerrestriaBlocks::never));
+		JUNGLE_PALM_LEAVES = TerrestriaRegistry.register("jungle_palm_leaves", settings -> new ColoredParticleLeavesBlock(0.02f, 0x225723, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).allowsSpawning(TerrestriaBlocks::canSpawnOnLeaves).suffocates(TerrestriaBlocks::never).blockVision(TerrestriaBlocks::never));
 
 		// swamp blocks
 		CATTAIL = TerrestriaRegistry.register("cattail", CattailBlock::new, AbstractBlock.Settings.copy(Blocks.SEAGRASS));
