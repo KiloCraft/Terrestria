@@ -1,5 +1,6 @@
 package com.terraformersmc.terrestria.init.helpers;
 
+import com.terraformersmc.terraform.leaves.api.block.ColoredParticleLeavesBlock;
 import com.terraformersmc.terraform.wood.api.block.PillarLogHelper;
 import com.terraformersmc.terrestria.block.TerrestriaOptiLeavesBlock;
 import com.terraformersmc.terrestria.init.TerrestriaBlocks;

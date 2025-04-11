@@ -35,26 +35,26 @@ import java.util.function.Function;
 
 public class TerrestriaModelProvider extends FabricModelProvider {
 	public static final List<Pair<BooleanProperty, Function<WeightedVariant, WeightedVariant>>> SMALL_LOG_VARIANT_FUNCTIONS = List.of(
-			Pair.of(Properties.NORTH, (model) -> model
-					.apply(BlockStateModelGenerator.ROTATE_X_90)
-			),
-			Pair.of(Properties.EAST, (model) -> model
-					.apply(BlockStateModelGenerator.ROTATE_X_90)
-					.apply(BlockStateModelGenerator.ROTATE_Y_90)
-			),
-			Pair.of(Properties.SOUTH, (model) -> model
-					.apply(BlockStateModelGenerator.ROTATE_X_90)
-					.apply(BlockStateModelGenerator.ROTATE_Y_180)
-			),
-			Pair.of(Properties.WEST, (model) -> model
-					.apply(BlockStateModelGenerator.ROTATE_X_90)
-					.apply(BlockStateModelGenerator.ROTATE_Y_270)
-			),
-			Pair.of(Properties.UP, (model) -> model
-			),
-			Pair.of(Properties.DOWN, (model) -> model
-					.apply(BlockStateModelGenerator.ROTATE_X_180)
-			)
+		Pair.of(Properties.NORTH, (model) -> model
+			.apply(BlockStateModelGenerator.ROTATE_X_90)
+		),
+		Pair.of(Properties.EAST, (model) -> model
+			.apply(BlockStateModelGenerator.ROTATE_X_90)
+			.apply(BlockStateModelGenerator.ROTATE_Y_90)
+		),
+		Pair.of(Properties.SOUTH, (model) -> model
+			.apply(BlockStateModelGenerator.ROTATE_X_90)
+			.apply(BlockStateModelGenerator.ROTATE_Y_180)
+		),
+		Pair.of(Properties.WEST, (model) -> model
+			.apply(BlockStateModelGenerator.ROTATE_X_90)
+			.apply(BlockStateModelGenerator.ROTATE_Y_270)
+		),
+		Pair.of(Properties.UP, (model) -> model
+		),
+		Pair.of(Properties.DOWN, (model) -> model
+			.apply(BlockStateModelGenerator.ROTATE_X_180)
+		)
 	);
 
 	public TerrestriaModelProvider(FabricDataOutput output) {
@@ -118,9 +118,9 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 	@Override
 	public void generateItemModels(ItemModelGenerator generator) {
 		// Small logs
+		this.registerSmallLogItemModels(generator, TerrestriaBlocks.YUCCA_PALM);
 
 		this.registerSmallLogItemModel(generator, TerrestriaBlocks.SAGUARO_CACTUS);
-
 
 		// Boats
 		this.registerBoatItemModels(generator, TerrestriaItems.CYPRESS);
@@ -148,7 +148,7 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 		Identifier carpetModelId = TexturedModel.CARPET.get(leaves).upload(leafPile, generator.modelCollector);
 		WeightedVariant carpetModel = BlockStateModelGenerator.createWeightedVariant(carpetModelId);
 		generator.blockStateCollector.accept(
-				BlockStateModelGenerator.createSingletonBlockState(leafPile, carpetModel));
+			BlockStateModelGenerator.createSingletonBlockState(leafPile, carpetModel));
 
 		this.registerBlockItemModel(generator, leafPile);
 	}
@@ -159,62 +159,63 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 
 	private void registerSmallLog(BlockStateModelGenerator generator, Block log, @Nullable Block texture, @Nullable Block leaves) {
 		if (!(log instanceof BareSmallLogBlock)) {
-			throw new IllegalArgumentException("Attempt to register non-SmallLog via registerSmallLog: " + log);
+			return;
+			//throw new IllegalArgumentException("Attempt to register non-SmallLog via registerSmallLog: " + log);
 		}
 		TextureKey leavesKey = TextureKey.of("leaves");
 		TextureMap logMap = TextureMap.sideAndEndForTop(texture == null ? log : texture);
 		TextureMap leafyMap = logMap
-				.copyAndAdd(leavesKey, TextureMap.getId(leaves == null ? Blocks.OAK_LEAVES : leaves))
-				.copy(leavesKey, TextureKey.PARTICLE);
+			.copyAndAdd(leavesKey, TextureMap.getId(leaves == null ? Blocks.OAK_LEAVES : leaves))
+			.copy(leavesKey, TextureKey.PARTICLE);
 		Model logModel = new Model(
-				Optional.of(WoodModels.BLOCK_SMALL_LOG),
-				Optional.empty(),
-				TextureKey.PARTICLE, TextureKey.SIDE);
+			Optional.of(WoodModels.BLOCK_SMALL_LOG),
+			Optional.empty(),
+			TextureKey.PARTICLE, TextureKey.SIDE);
 		Model branchModel = new Model(
-				Optional.of(WoodModels.BLOCK_SMALL_LOG_BRANCH),
-				Optional.of("_branch"),
-				TextureKey.PARTICLE, TextureKey.END, TextureKey.SIDE);
+			Optional.of(WoodModels.BLOCK_SMALL_LOG_BRANCH),
+			Optional.of("_branch"),
+			TextureKey.PARTICLE, TextureKey.END, TextureKey.SIDE);
 		Model leavesModel = new Model(
-				Optional.of(WoodModels.BLOCK_SMALL_LOG_LEAVES),
-				Optional.of("_leaves"),
-				TextureKey.PARTICLE, leavesKey);
+			Optional.of(WoodModels.BLOCK_SMALL_LOG_LEAVES),
+			Optional.of("_leaves"),
+			TextureKey.PARTICLE, leavesKey);
 		Model cutoutModel = new Model(
-				Optional.of(WoodModels.BLOCK_SMALL_LOG_LEAVES_CUTOUT),
-				Optional.of("_leaves_cutout"),
-				TextureKey.PARTICLE, leavesKey);
+			Optional.of(WoodModels.BLOCK_SMALL_LOG_LEAVES_CUTOUT),
+			Optional.of("_leaves_cutout"),
+			TextureKey.PARTICLE, leavesKey);
 		Identifier texturedLogModelId = TexturedModel.makeFactory(block -> logMap, logModel)
-				.upload(log, generator.modelCollector);
+			.upload(log, generator.modelCollector);
 		Identifier texturedBranchModelId = TexturedModel.makeFactory(block -> logMap, branchModel)
-				.upload(log, generator.modelCollector);
+			.upload(log, generator.modelCollector);
 		Identifier texturedLeavesModelId = TexturedModel.makeFactory(block -> leafyMap, leavesModel)
-				.upload(log, generator.modelCollector);
+			.upload(log, generator.modelCollector);
 		Identifier texturedCutoutModelId = TexturedModel.makeFactory(block -> leafyMap, cutoutModel)
-				.upload(log, generator.modelCollector);
+			.upload(log, generator.modelCollector);
 		WeightedVariant texturedLog = BlockStateModelGenerator.createWeightedVariant(texturedLogModelId);
 		WeightedVariant texturedBranch = BlockStateModelGenerator.createWeightedVariant(texturedBranchModelId);
 		WeightedVariant texturedLeaves = BlockStateModelGenerator.createWeightedVariant(texturedLeavesModelId);
 		WeightedVariant texturedCutout = BlockStateModelGenerator.createWeightedVariant(texturedCutoutModelId);
 		MultipartBlockModelDefinitionCreator multipartBlockModelDefinitionCreator =
-				MultipartBlockModelDefinitionCreator.create(log);
+			MultipartBlockModelDefinitionCreator.create(log);
 
 		SMALL_LOG_VARIANT_FUNCTIONS.forEach(pair -> {
 			multipartBlockModelDefinitionCreator.with(
-					new MultipartModelConditionBuilder().put(pair.getFirst(), true),
-					pair.getSecond().apply(texturedBranch));
+				new MultipartModelConditionBuilder().put(pair.getFirst(), true),
+				pair.getSecond().apply(texturedBranch));
 			multipartBlockModelDefinitionCreator.with(
-					new MultipartModelConditionBuilder().put(pair.getFirst(), false),
-					pair.getSecond().apply(texturedLog));
+				new MultipartModelConditionBuilder().put(pair.getFirst(), false),
+				pair.getSecond().apply(texturedLog));
 			if (leaves != null) {
 				multipartBlockModelDefinitionCreator.with(
-						new MultipartModelConditionBuilder()
-								.put(SmallLogBlock.HAS_LEAVES, true)
-								.put(pair.getFirst(), true),
-						pair.getSecond().apply(texturedCutout));
+					new MultipartModelConditionBuilder()
+						.put(SmallLogBlock.HAS_LEAVES, true)
+						.put(pair.getFirst(), true),
+					pair.getSecond().apply(texturedCutout));
 				multipartBlockModelDefinitionCreator.with(
-						new MultipartModelConditionBuilder()
-								.put(SmallLogBlock.HAS_LEAVES, true)
-								.put(pair.getFirst(), false),
-						pair.getSecond().apply(texturedLeaves));
+					new MultipartModelConditionBuilder()
+						.put(SmallLogBlock.HAS_LEAVES, true)
+						.put(pair.getFirst(), false),
+					pair.getSecond().apply(texturedLeaves));
 			}
 		});
 
@@ -227,60 +228,60 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 		// * a side texture to the South and West
 		// * a top (end) texture on the top and bottom
 		TextureMap textureMap = new TextureMap()
-				.put(TextureKey.INSIDE, TextureMap.getId(quarterLog))
-				.put(TextureKey.SIDE, TextureMap.getId(log))
-				.put(TextureKey.END, TextureMap.getSubId(quarterLog, "_top"))
-				.copy(TextureKey.SIDE, TextureKey.PARTICLE);
+			.put(TextureKey.INSIDE, TextureMap.getId(quarterLog))
+			.put(TextureKey.SIDE, TextureMap.getId(log))
+			.put(TextureKey.END, TextureMap.getSubId(quarterLog, "_top"))
+			.copy(TextureKey.SIDE, TextureKey.PARTICLE);
 		Model model = new Model(
-				Optional.of(WoodModels.BLOCK_QUARTER_LOG),
-				Optional.empty(),
-				TextureKey.PARTICLE, TextureKey.INSIDE, TextureKey.SIDE, TextureKey.END);
+			Optional.of(WoodModels.BLOCK_QUARTER_LOG),
+			Optional.empty(),
+			TextureKey.PARTICLE, TextureKey.INSIDE, TextureKey.SIDE, TextureKey.END);
 		Identifier texturedModelId = TexturedModel.makeFactory(block -> textureMap, model)
-				.upload(quarterLog, generator.modelCollector);
+			.upload(quarterLog, generator.modelCollector);
 		WeightedVariant texturedModel = BlockStateModelGenerator.createWeightedVariant(texturedModelId);
 
 		generator.blockStateCollector.accept(
-				VariantsBlockModelDefinitionCreator.of(quarterLog)
-						.with(
-								BlockStateVariantMap.models(Properties.AXIS, QuarterLogBlock.BARK_SIDE)
-										.generate((axis, barkSide) -> switch (axis) {
-											case X -> switch (barkSide) {
-												case SOUTHWEST -> texturedModel
-														.apply(BlockStateModelGenerator.ROTATE_X_90)
-														.apply(BlockStateModelGenerator.ROTATE_Y_270);
-												case NORTHWEST -> texturedModel
-														.apply(BlockStateModelGenerator.ROTATE_X_90)
-														.apply(BlockStateModelGenerator.ROTATE_Y_90);
-												case NORTHEAST -> texturedModel
-														.apply(BlockStateModelGenerator.ROTATE_X_270)
-														.apply(BlockStateModelGenerator.ROTATE_Y_90);
-												case SOUTHEAST -> texturedModel
-														.apply(BlockStateModelGenerator.ROTATE_X_270)
-														.apply(BlockStateModelGenerator.ROTATE_Y_270);
-											};
-											case Y -> switch (barkSide) {
-												case SOUTHWEST -> texturedModel;
-												case NORTHWEST -> texturedModel
-														.apply(BlockStateModelGenerator.ROTATE_Y_90);
-												case NORTHEAST -> texturedModel
-														.apply(BlockStateModelGenerator.ROTATE_Y_180);
-												case SOUTHEAST -> texturedModel
-														.apply(BlockStateModelGenerator.ROTATE_Y_270);
-											};
-											case Z -> switch (barkSide) {
-												case SOUTHWEST -> texturedModel
-														.apply(BlockStateModelGenerator.ROTATE_X_90);
-												case NORTHWEST -> texturedModel
-														.apply(BlockStateModelGenerator.ROTATE_X_270);
-												case NORTHEAST -> texturedModel
-														.apply(BlockStateModelGenerator.ROTATE_X_270)
-														.apply(BlockStateModelGenerator.ROTATE_Y_180);
-												case SOUTHEAST -> texturedModel
-														.apply(BlockStateModelGenerator.ROTATE_X_90)
-														.apply(BlockStateModelGenerator.ROTATE_Y_180);
-											};
-										})
-						)
+			VariantsBlockModelDefinitionCreator.of(quarterLog)
+				.with(
+					BlockStateVariantMap.models(Properties.AXIS, QuarterLogBlock.BARK_SIDE)
+						.generate((axis, barkSide) -> switch (axis) {
+							case X -> switch (barkSide) {
+								case SOUTHWEST -> texturedModel
+									.apply(BlockStateModelGenerator.ROTATE_X_90)
+									.apply(BlockStateModelGenerator.ROTATE_Y_270);
+								case NORTHWEST -> texturedModel
+									.apply(BlockStateModelGenerator.ROTATE_X_90)
+									.apply(BlockStateModelGenerator.ROTATE_Y_90);
+								case NORTHEAST -> texturedModel
+									.apply(BlockStateModelGenerator.ROTATE_X_270)
+									.apply(BlockStateModelGenerator.ROTATE_Y_90);
+								case SOUTHEAST -> texturedModel
+									.apply(BlockStateModelGenerator.ROTATE_X_270)
+									.apply(BlockStateModelGenerator.ROTATE_Y_270);
+							};
+							case Y -> switch (barkSide) {
+								case SOUTHWEST -> texturedModel;
+								case NORTHWEST -> texturedModel
+									.apply(BlockStateModelGenerator.ROTATE_Y_90);
+								case NORTHEAST -> texturedModel
+									.apply(BlockStateModelGenerator.ROTATE_Y_180);
+								case SOUTHEAST -> texturedModel
+									.apply(BlockStateModelGenerator.ROTATE_Y_270);
+							};
+							case Z -> switch (barkSide) {
+								case SOUTHWEST -> texturedModel
+									.apply(BlockStateModelGenerator.ROTATE_X_90);
+								case NORTHWEST -> texturedModel
+									.apply(BlockStateModelGenerator.ROTATE_X_270);
+								case NORTHEAST -> texturedModel
+									.apply(BlockStateModelGenerator.ROTATE_X_270)
+									.apply(BlockStateModelGenerator.ROTATE_Y_180);
+								case SOUTHEAST -> texturedModel
+									.apply(BlockStateModelGenerator.ROTATE_X_90)
+									.apply(BlockStateModelGenerator.ROTATE_Y_180);
+							};
+						})
+				)
 		);
 
 		this.registerBlockItemModel(generator, quarterLog);
@@ -290,13 +291,13 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 		// Vanilla part of WoodBlocks
 		//generator.registerCubeAllModelTexturePool(blockFamily.getBaseBlock()).family(blockFamily);
 
-		//if (woodBlocks.getSize().equals(WoodBlocks.LogSize.SMALL)) {
+		if (woodBlocks.getSize().equals(WoodBlocks.LogSize.SMALL)) {
 			// This case is for small log trees that do have a full WoodBlocks
-			//this.registerSmallLog(generator, woodBlocks.log, woodBlocks.leaves);
-			//this.registerSmallLog(generator, woodBlocks.strippedLog, woodBlocks.leaves);
+			this.registerSmallLog(generator, woodBlocks.log, woodBlocks.leaves);
+			this.registerSmallLog(generator, woodBlocks.strippedLog, woodBlocks.leaves);
 
 			// Log item registration for small logs is in the item registration
-		//} else {
+		} else {
 			// This is what vanilla's BlockFamily-based code does
 			if (woodBlocks.hasWood()) {
 				generator.createLogTexturePool(woodBlocks.log).log(woodBlocks.log).wood(woodBlocks.wood);
@@ -305,23 +306,20 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 				generator.createLogTexturePool(woodBlocks.log).log(woodBlocks.log);
 				generator.createLogTexturePool(woodBlocks.strippedLog).log(woodBlocks.strippedLog);
 			}
-
-			this.registerBlockItemModel(generator, woodBlocks.log);
-			this.registerBlockItemModel(generator, woodBlocks.strippedLog);
-		//}
+		}
 		if (sapling != null) {
 			generator.registerFlowerPotPlantAndItem(sapling, pottedSapling, BlockStateModelGenerator.CrossType.NOT_TINTED);
 		}
 		if ("willow".equals(woodBlocks.getName())) {
 			// TODO: generalize this special case?
 			TextureMap textureMap = new TextureMap()
-					.put(TextureKey.SIDE, TextureMap.getId(woodBlocks.leaves))
-					.put(TextureKey.END, TextureMap.getSubId(woodBlocks.leaves, "_top"))
-					.copy(TextureKey.SIDE, TextureKey.PARTICLE);
+				.put(TextureKey.SIDE, TextureMap.getId(woodBlocks.leaves))
+				.put(TextureKey.END, TextureMap.getSubId(woodBlocks.leaves, "_top"))
+				.copy(TextureKey.SIDE, TextureKey.PARTICLE);
 			Model model = new Model(
-					Optional.of(LeavesModels.BLOCK_PILLAR_LEAVES),
-					Optional.empty(),
-					TextureKey.PARTICLE, TextureKey.SIDE, TextureKey.END);
+				Optional.of(LeavesModels.BLOCK_PILLAR_LEAVES),
+				Optional.empty(),
+				TextureKey.PARTICLE, TextureKey.SIDE, TextureKey.END);
 			TexturedModel.Factory texturedModel = TexturedModel.makeFactory(block -> textureMap, model);
 
 			generator.registerTintedBlockAndItem(woodBlocks.leaves, texturedModel, FoliageColors.DEFAULT);
@@ -331,8 +329,6 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 			generator.registerSingleton(woodBlocks.leaves, TexturedModel.LEAVES);
 			this.registerBlockItemModel(generator, woodBlocks.leaves);
 		}
-
-		// Extra parts of WoodBlocks
 
 	}
 
@@ -360,9 +356,6 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 		BlockStateModelGenerator.BlockTexturePool textures = generator.registerCubeAllModelTexturePool(stoneBlocks.smooth.full);
 
 		this.registerBlockItemModel(generator, stoneBlocks.smooth.full);
-
-		// Extra parts
-
 	}
 
 	private void registerDirtBlocks(BlockStateModelGenerator generator, DirtBlocks dirtBlocks) {
@@ -372,42 +365,42 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 
 		// Dirt Path based on vanilla model and the partial code in BlockStateModelGenerator.registerDirtPath()
 		TextureMap pathTexture = TextureMap.sideAndEndForTop(dirtBlocks.getDirtPath())
-				.put(TextureKey.BOTTOM, dirtTextureId)
-				.inherit(TextureKey.BOTTOM, TextureKey.PARTICLE)
-				.put(TextureKey.TOP, TextureMap.getSubId(Blocks.DIRT_PATH,"_top"))
-				.put(TextureKey.SIDE, TextureMap.getSubId(dirtBlocks.getDirtPath(), "_side"));
+			.put(TextureKey.BOTTOM, dirtTextureId)
+			.inherit(TextureKey.BOTTOM, TextureKey.PARTICLE)
+			.put(TextureKey.TOP, TextureMap.getSubId(Blocks.DIRT_PATH,"_top"))
+			.put(TextureKey.SIDE, TextureMap.getSubId(dirtBlocks.getDirtPath(), "_side"));
 		Identifier pathModelId = new Model(
-				Optional.of(ModelIds.getBlockModelId(Blocks.DIRT_PATH)),
-				Optional.empty(),
-				TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.TOP
+			Optional.of(ModelIds.getBlockModelId(Blocks.DIRT_PATH)),
+			Optional.empty(),
+			TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.TOP
 		).upload(dirtBlocks.getDirtPath(), pathTexture, generator.modelCollector);
 		ModelVariant pathModel = BlockStateModelGenerator.createModelVariant(pathModelId);
 
 		generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(dirtBlocks.getDirtPath(),
-				BlockStateModelGenerator.modelWithYRotation(pathModel)));
+			BlockStateModelGenerator.modelWithYRotation(pathModel)));
 
 		// Grass, Mycelium, and Podzol based roughly on BlockStateModelGenerator.registerTopSoils()
 		// grass
 		TextureMap grassTextureMap = new TextureMap()
-				.put(TextureKey.BOTTOM, dirtTextureId)
-				.inherit(TextureKey.BOTTOM, TextureKey.PARTICLE)
-				.put(TextureKey.TOP, TextureMap.getSubId(Blocks.GRASS_BLOCK, "_top"))
-				.put(TextureKey.SIDE, TextureMap.getSubId(dirtBlocks.getGrassBlock(), "_side"))
-				.put(TextureKey.of("overlay"), TextureMap.getSubId(Blocks.GRASS_BLOCK, "_side_overlay"));
+			.put(TextureKey.BOTTOM, dirtTextureId)
+			.inherit(TextureKey.BOTTOM, TextureKey.PARTICLE)
+			.put(TextureKey.TOP, TextureMap.getSubId(Blocks.GRASS_BLOCK, "_top"))
+			.put(TextureKey.SIDE, TextureMap.getSubId(dirtBlocks.getGrassBlock(), "_side"))
+			.put(TextureKey.of("overlay"), TextureMap.getSubId(Blocks.GRASS_BLOCK, "_side_overlay"));
 		Identifier grassTextureId = new Model(
-				Optional.of(ModelIds.getBlockModelId(Blocks.GRASS_BLOCK)),
-				Optional.empty(),
-				TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.TOP
+			Optional.of(ModelIds.getBlockModelId(Blocks.GRASS_BLOCK)),
+			Optional.empty(),
+			TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.TOP
 		).upload(dirtBlocks.getGrassBlock(), grassTextureMap, generator.modelCollector);
 		WeightedVariant grassTexture = BlockStateModelGenerator.createWeightedVariant(grassTextureId);
 		TextureMap snowTexture = new TextureMap()
-				.put(TextureKey.BOTTOM, dirtTextureId)
-				.inherit(TextureKey.BOTTOM, TextureKey.PARTICLE)
-				.put(TextureKey.TOP, TextureMap.getSubId(Blocks.GRASS_BLOCK, "_top"))
-				.put(TextureKey.SIDE, TextureMap.getSubId(dirtBlocks.getGrassBlock(), "_snow"));
+			.put(TextureKey.BOTTOM, dirtTextureId)
+			.inherit(TextureKey.BOTTOM, TextureKey.PARTICLE)
+			.put(TextureKey.TOP, TextureMap.getSubId(Blocks.GRASS_BLOCK, "_top"))
+			.put(TextureKey.SIDE, TextureMap.getSubId(dirtBlocks.getGrassBlock(), "_snow"));
 		WeightedVariant snowStateVariant = BlockStateModelGenerator
-				.createWeightedVariant(Models.CUBE_BOTTOM_TOP.upload(
-						dirtBlocks.getGrassBlock(), "_snow", snowTexture, generator.modelCollector));
+			.createWeightedVariant(Models.CUBE_BOTTOM_TOP.upload(
+				dirtBlocks.getGrassBlock(), "_snow", snowTexture, generator.modelCollector));
 		generator.registerTopSoil(dirtBlocks.getGrassBlock(), grassTexture, snowStateVariant);
 		generator.registerTintedItemModel(dirtBlocks.getGrassBlock(), grassTextureId, new GrassTintSource());
 		/* TODO: future mycelium feature?
@@ -422,28 +415,28 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 		*/
 		// podzol
 		Identifier podzolTextureId = TexturedModel.CUBE_BOTTOM_TOP
-				.get(dirtBlocks.getPodzol())
-				.textures(textures -> textures
-						.put(TextureKey.BOTTOM, dirtTextureId)
-						.put(TextureKey.TOP, TextureMap.getSubId(Blocks.PODZOL, "_top")))
-				.upload(dirtBlocks.getPodzol(), generator.modelCollector);
+			.get(dirtBlocks.getPodzol())
+			.textures(textures -> textures
+				.put(TextureKey.BOTTOM, dirtTextureId)
+				.put(TextureKey.TOP, TextureMap.getSubId(Blocks.PODZOL, "_top")))
+			.upload(dirtBlocks.getPodzol(), generator.modelCollector);
 		WeightedVariant podzolTexture = BlockStateModelGenerator.createWeightedVariant(podzolTextureId);
 		generator.registerTopSoil(dirtBlocks.getPodzol(), podzolTexture, snowStateVariant);
 
 		// Farmland from BlockStateModelGenerator.registerFarmland()
 		TextureMap farmlandTexture = new TextureMap()
-				.put(TextureKey.DIRT, TextureMap.getId(dirtBlocks.getDirt()))
-				.put(TextureKey.TOP, TextureMap.getId(dirtBlocks.getFarmland()));
+			.put(TextureKey.DIRT, TextureMap.getId(dirtBlocks.getDirt()))
+			.put(TextureKey.TOP, TextureMap.getId(dirtBlocks.getFarmland()));
 		TextureMap moistFarmlandTexture = new TextureMap()
-				.put(TextureKey.DIRT, TextureMap.getId(dirtBlocks.getDirt()))
-				.put(TextureKey.TOP, TextureMap.getSubId(dirtBlocks.getFarmland(), "_moist"));
+			.put(TextureKey.DIRT, TextureMap.getId(dirtBlocks.getDirt()))
+			.put(TextureKey.TOP, TextureMap.getSubId(dirtBlocks.getFarmland(), "_moist"));
 		Identifier farmlandModelId = Models.TEMPLATE_FARMLAND.upload(dirtBlocks.getFarmland(), farmlandTexture, generator.modelCollector);
 		Identifier moistFarmlandModelId = Models.TEMPLATE_FARMLAND.upload(TextureMap.getSubId(dirtBlocks.getFarmland(), "_moist"), moistFarmlandTexture, generator.modelCollector);
 		WeightedVariant farmlandModel = BlockStateModelGenerator.createWeightedVariant(farmlandModelId);
 		WeightedVariant moistFarmlandModel = BlockStateModelGenerator.createWeightedVariant(moistFarmlandModelId);
 		generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(dirtBlocks.getFarmland())
-				.with(BlockStateModelGenerator
-						.createValueFencedModelMap(Properties.MOISTURE, 7, moistFarmlandModel, farmlandModel)));
+			.with(BlockStateModelGenerator
+				.createValueFencedModelMap(Properties.MOISTURE, 7, moistFarmlandModel, farmlandModel)));
 
 		this.registerBlockItemModel(generator, dirtBlocks.getDirt());
 		this.registerBlockItemModel(generator, dirtBlocks.getDirtPath());
@@ -453,14 +446,14 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 
 	private void registerSmallLogItemModel(ItemModelGenerator generator, Block block, @Nullable Block texture) {
 		new Model(
-				Optional.of(WoodModels.ITEM_SMALL_LOG),
-				Optional.empty(),
-				TextureKey.ALL
+			Optional.of(WoodModels.ITEM_SMALL_LOG),
+			Optional.empty(),
+			TextureKey.ALL
 		).upload(
-				block.asItem(),
-				TextureMap.all(TextureMap.getId(texture == null ? block : texture))
-						.inherit(TextureKey.ALL, TextureKey.PARTICLE),
-				generator.modelCollector
+			block.asItem(),
+			TextureMap.all(TextureMap.getId(texture == null ? block : texture))
+				.inherit(TextureKey.ALL, TextureKey.PARTICLE),
+			generator.modelCollector
 		);
 
 		generator.register(block.asItem());
@@ -476,8 +469,7 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 	}
 
 	private void registerBoatItemModels(ItemModelGenerator generator, WoodItems woodItems) {
-		if (woodItems.hasBoat()) {
-		}
+
 	}
 
 	@Override
