@@ -118,7 +118,7 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 	@Override
 	public void generateItemModels(ItemModelGenerator generator) {
 		// Small logs
-		this.registerSmallLogItemModels(generator, TerrestriaBlocks.YUCCA_PALM);
+		//this.registerSmallLogItemModels(generator, TerrestriaBlocks.YUCCA_PALM);
 
 		this.registerSmallLogItemModel(generator, TerrestriaBlocks.SAGUARO_CACTUS);
 
@@ -291,13 +291,13 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 		// Vanilla part of WoodBlocks
 		//generator.registerCubeAllModelTexturePool(blockFamily.getBaseBlock()).family(blockFamily);
 
-		if (woodBlocks.getSize().equals(WoodBlocks.LogSize.SMALL)) {
+		//if (woodBlocks.getSize().equals(WoodBlocks.LogSize.SMALL)) {
 			// This case is for small log trees that do have a full WoodBlocks
-			this.registerSmallLog(generator, woodBlocks.log, woodBlocks.leaves);
-			this.registerSmallLog(generator, woodBlocks.strippedLog, woodBlocks.leaves);
+		//	this.registerSmallLog(generator, woodBlocks.log, woodBlocks.leaves);
+		//	this.registerSmallLog(generator, woodBlocks.strippedLog, woodBlocks.leaves);
 
 			// Log item registration for small logs is in the item registration
-		} else {
+		//} else {
 			// This is what vanilla's BlockFamily-based code does
 			if (woodBlocks.hasWood()) {
 				generator.createLogTexturePool(woodBlocks.log).log(woodBlocks.log).wood(woodBlocks.wood);
@@ -306,7 +306,7 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 				generator.createLogTexturePool(woodBlocks.log).log(woodBlocks.log);
 				generator.createLogTexturePool(woodBlocks.strippedLog).log(woodBlocks.strippedLog);
 			}
-		}
+		//}
 		if (sapling != null) {
 			generator.registerFlowerPotPlantAndItem(sapling, pottedSapling, BlockStateModelGenerator.CrossType.NOT_TINTED);
 		}
