@@ -35,6 +35,11 @@ public class TerrestriaBlockTagProvider extends FabricTagProvider.BlockTagProvid
 		getOrCreateTagBuilder(BlockTags.CONVERTABLE_TO_MUD)
 			.add(TerrestriaBlocks.ANDISOL.getDirt());
 
+		getOrCreateTagBuilder(BlockTags.EDIBLE_FOR_SHEEP)
+				.add(TerrestriaBlocks.AGAVE)
+				.add(TerrestriaBlocks.DEAD_GRASS)
+				.add(TerrestriaBlocks.MONSTERAS);
+
 		getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
 			.add(TerrestriaBlocks.POTTED_AGAVE)
 			.add(TerrestriaBlocks.POTTED_ALOE_VERA)
@@ -158,7 +163,10 @@ public class TerrestriaBlockTagProvider extends FabricTagProvider.BlockTagProvid
 			.add(dirtBlock.getGrassBlock());
 
 		getOrCreateTagBuilder(BlockTags.BIG_DRIPLEAF_PLACEABLE)
-			.add(dirtBlock.getFarmland());
+				.add(dirtBlock.getDirt())
+				.add(dirtBlock.getFarmland())
+				.add(dirtBlock.getGrassBlock())
+				.add(dirtBlock.getPodzol());
 
 		getOrCreateTagBuilder(BlockTags.CONVERTABLE_TO_MUD)
 			.add(dirtBlock.getDirt());
@@ -168,13 +176,29 @@ public class TerrestriaBlockTagProvider extends FabricTagProvider.BlockTagProvid
 			.add(dirtBlock.getGrassBlock())
 			.add(dirtBlock.getPodzol());
 
+		getOrCreateTagBuilder(BlockTags.DRY_VEGETATION_MAY_PLACE_ON)
+				.add(dirtBlock.getFarmland());
+
 		getOrCreateTagBuilder(BlockTags.ENDERMAN_HOLDABLE)
 			.add(dirtBlock.getDirt())
 			.add(dirtBlock.getGrassBlock())
 			.add(dirtBlock.getPodzol());
 
+		getOrCreateTagBuilder(BlockTags.FOXES_SPAWNABLE_ON)
+				.add(dirtBlock.getGrassBlock())
+				.add(dirtBlock.getPodzol());
+
+		getOrCreateTagBuilder(BlockTags.FROGS_SPAWNABLE_ON)
+				.add(dirtBlock.getGrassBlock());
+
 		getOrCreateTagBuilder(BlockTags.MUSHROOM_GROW_BLOCK)
 			.add(dirtBlock.getPodzol());
+
+		getOrCreateTagBuilder(BlockTags.PARROTS_SPAWNABLE_ON)
+				.add(dirtBlock.getGrassBlock());
+
+		getOrCreateTagBuilder(BlockTags.RABBITS_SPAWNABLE_ON)
+				.add(dirtBlock.getGrassBlock());
 
 		getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE)
 			.add(dirtBlock.getDirt())
@@ -183,9 +207,18 @@ public class TerrestriaBlockTagProvider extends FabricTagProvider.BlockTagProvid
 			.add(dirtBlock.getGrassBlock())
 			.add(dirtBlock.getPodzol());
 
+		getOrCreateTagBuilder(BlockTags.SNIFFER_DIGGABLE_BLOCK)
+				.add(dirtBlock.getDirt())
+				.add(dirtBlock.getGrassBlock())
+				.add(dirtBlock.getPodzol());
+
 		getOrCreateTagBuilder(BlockTags.VALID_SPAWN)
 			.add(dirtBlock.getGrassBlock())
 			.add(dirtBlock.getPodzol());
+
+		getOrCreateTagBuilder(BlockTags.WOLVES_SPAWNABLE_ON)
+				.add(dirtBlock.getGrassBlock())
+				.add(dirtBlock.getPodzol());
 
 
 		getOrCreateTagBuilder(TerrestriaBlockTags.DIRTS)
@@ -207,9 +240,15 @@ public class TerrestriaBlockTagProvider extends FabricTagProvider.BlockTagProvid
 	}
 
 	private void addSand(ColoredFallingBlock sandBlock) {
+		getOrCreateTagBuilder(BlockTags.AZALEA_ROOT_REPLACEABLE).add(sandBlock);
 		getOrCreateTagBuilder(BlockTags.ENDERMAN_HOLDABLE).add(sandBlock);
+		getOrCreateTagBuilder(BlockTags.LUSH_GROUND_REPLACEABLE).add(sandBlock);
+		getOrCreateTagBuilder(BlockTags.PLAYS_AMBIENT_DESERT_BLOCK_SOUNDS).add(sandBlock);
+		getOrCreateTagBuilder(BlockTags.RABBITS_SPAWNABLE_ON).add(sandBlock);
 		getOrCreateTagBuilder(BlockTags.SAND).add(sandBlock);
+		getOrCreateTagBuilder(BlockTags.SCULK_REPLACEABLE).add(sandBlock);
 		getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE).add(sandBlock);
+		getOrCreateTagBuilder(BlockTags.SMELTS_TO_GLASS).add(sandBlock);
 
 		getOrCreateTagBuilder(TerrestriaBlockTags.SANDS).add(sandBlock);
 	}
@@ -274,8 +313,9 @@ public class TerrestriaBlockTagProvider extends FabricTagProvider.BlockTagProvid
 	private void addWood(TagKey<Block> logTag, WoodBlocks woodBlock) {
 		FabricTagBuilder woodBuilder = getOrCreateTagBuilder(logTag);
 		woodBuilder
-			.add(woodBlock.log)
-			.add(woodBlock.strippedLog);
+				.add(woodBlock.log)
+				.add(woodBlock.strippedLog);
+		getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS).add(woodBlock.log);
 		getOrCreateTagBuilder(ConventionalBlockTags.STRIPPED_LOGS).add(woodBlock.strippedLog);
 
 		if (woodBlock.hasWood()) {
