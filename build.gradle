@@ -4,6 +4,7 @@ plugins {
 	id 'idea'
 	id 'eclipse'
 	id 'fabric-loom' version '1.10.+'
+	id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
 apply from: 'https://raw.githubusercontent.com/TerraformersMC/GradleScripts/2.7/ferry.gradle'
@@ -73,6 +74,20 @@ allprojects {
 			filesMatching("fabric.mod.json") {
 				expand "version": project.version
 			}
+		}
+	}
+
+	publishMods {
+		file = remapJar.archiveFile
+		type = STABLE
+		changelog = providers.environmentVariable("CHANGELOG").getOrElse("No changelog provided")
+
+		displayName = "Terrestria ${version.get()}"
+
+		github {
+			accessToken = providers.environmentVariable("GITHUB_TOKEN")
+			repository = providers.environmentVariable("GITHUB_REPOSITORY").getOrElse("KiloCraft/Terrestria")
+			commitish = providers.environmentVariable("GITHUB_REF_NAME").getOrElse("main")
 		}
 	}
 
