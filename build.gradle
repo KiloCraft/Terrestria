@@ -37,6 +37,21 @@ dependencies {
 	}
 }
 
+publishMods {
+	file = remapJar.archiveFile
+	type = STABLE
+	changelog = providers.environmentVariable("CHANGELOG").getOrElse("No changelog provided")
+
+	displayName = "Terrestria ${version.get()}"
+
+	github {
+		accessToken = providers.environmentVariable("GITHUB_TOKEN")
+		repository = providers.environmentVariable("GITHUB_REPOSITORY").getOrElse("KiloCraft/Terrestria")
+		commitish = providers.environmentVariable("GITHUB_REF_NAME").getOrElse("main")
+	}
+	dryRun=true
+}
+
 allprojects {
 	apply plugin: 'java'
 	apply plugin: 'idea'
@@ -74,20 +89,6 @@ allprojects {
 			filesMatching("fabric.mod.json") {
 				expand "version": project.version
 			}
-		}
-	}
-
-	publishMods {
-		file = remapJar.archiveFile
-		type = STABLE
-		changelog = providers.environmentVariable("CHANGELOG").getOrElse("No changelog provided")
-
-		displayName = "Terrestria ${version.get()}"
-
-		github {
-			accessToken = providers.environmentVariable("GITHUB_TOKEN")
-			repository = providers.environmentVariable("GITHUB_REPOSITORY").getOrElse("KiloCraft/Terrestria")
-			commitish = providers.environmentVariable("GITHUB_REF_NAME").getOrElse("main")
 		}
 	}
 
