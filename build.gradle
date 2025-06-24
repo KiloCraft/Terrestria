@@ -49,7 +49,6 @@ publishMods {
 		repository = providers.environmentVariable("GITHUB_REPOSITORY").getOrElse("KiloCraft/Terrestria")
 		commitish = providers.environmentVariable("GITHUB_REF_NAME").getOrElse("main")
 	}
-	dryRun=true
 }
 
 allprojects {
