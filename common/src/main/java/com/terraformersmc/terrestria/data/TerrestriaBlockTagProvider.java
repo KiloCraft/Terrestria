@@ -96,7 +96,7 @@ public class TerrestriaBlockTagProvider extends FabricTagProvider.BlockTagProvid
 		/*
 		 * Tool block tags
 		 */
-		getOrCreateTagBuilder(BlockTags.HOE_MINEABLE)
+		valueLookupBuilder(BlockTags.HOE_MINEABLE)
 				.add(TerrestriaBlocks.JUNGLE_PALM_LEAVES);
 
 

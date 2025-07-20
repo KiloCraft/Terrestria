@@ -4,6 +4,7 @@ import com.terraformersmc.terraform.leaves.api.block.ColoredParticleLeavesBlock;
 import com.terraformersmc.terraform.leaves.api.block.ExtendedLeavesBlock;
 import com.terraformersmc.terraform.leaves.api.block.LeafPileBlock;
 import com.terraformersmc.terraform.wood.api.block.PillarLogHelper;
+import com.terraformersmc.terrestria.Terrestria;
 import com.terraformersmc.terrestria.block.TerrestriaOptiLeavesBlock;
 import com.terraformersmc.terrestria.init.TerrestriaBlocks;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
