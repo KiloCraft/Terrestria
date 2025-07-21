@@ -91,9 +91,9 @@ public class TerrestriaItemTagProvider extends FabricTagProvider.ItemTagProvider
 		/*
 		 * Local item tags
 		 */
-		getOrCreateTagBuilder(TerrestriaItemTags.MOSSY_INGREDIENTS)
-			.add(Items.MOSS_BLOCK)
-			.add(Items.VINE);
+		valueLookupBuilder(TerrestriaItemTags.MOSSY_INGREDIENTS)
+				.add(Items.MOSS_BLOCK)
+				.add(Items.VINE);
 
 		copy(TerrestriaBlockTags.PLANKS_THAT_BURN, TerrestriaItemTags.PLANKS_THAT_BURN);
 
@@ -162,8 +162,8 @@ public class TerrestriaItemTagProvider extends FabricTagProvider.ItemTagProvider
 	private void addStone(StoneItems stoneItem) {
 		if (stoneItem.cobblestone != null) {
 			// Add any cobble variant to vanilla crafting tags.
-			getOrCreateTagBuilder(ItemTags.STONE_CRAFTING_MATERIALS).add(stoneItem.cobblestone.full);
-			getOrCreateTagBuilder(ItemTags.STONE_TOOL_MATERIALS).add(stoneItem.cobblestone.full);
+			valueLookupBuilder(ItemTags.STONE_CRAFTING_MATERIALS).add(stoneItem.cobblestone.full);
+			valueLookupBuilder(ItemTags.STONE_TOOL_MATERIALS).add(stoneItem.cobblestone.full);
 		}
 	}
 

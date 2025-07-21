@@ -6,14 +6,13 @@ import com.terraformersmc.terrestria.tag.TerrestriaBlockTags;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.color.block.BlockColorProvider;
 import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.FoliageColors;
 import net.minecraft.world.biome.GrassColors;
@@ -21,11 +20,9 @@ import net.minecraft.world.biome.GrassColors;
 // This class is an entrypoint
 @Environment(EnvType.CLIENT)
 public class TerrestriaClient implements ClientModInitializer {
-	@SuppressWarnings("unused")
-	private static final RenderLayer LEAVES_ITEM_LAYER = TexturedRenderLayers.getEntityCutout();
-	private static final RenderLayer GRASS_BLOCK_LAYER = RenderLayer.getCutoutMipped();
-	private static final RenderLayer PLANT_BLOCK_LAYER = RenderLayer.getCutout();
-	private static final RenderLayer DOOR_BLOCK_LAYER = RenderLayer.getCutout();
+	private static final BlockRenderLayer GRASS_BLOCK_LAYER = BlockRenderLayer.CUTOUT_MIPPED;
+	private static final BlockRenderLayer PLANT_BLOCK_LAYER = BlockRenderLayer.CUTOUT;
+	private static final BlockRenderLayer DOOR_BLOCK_LAYER = BlockRenderLayer.CUTOUT;
 
 	private static final BlockColorProvider FOLIAGE_BLOCK_COLORS =
 			(block, world, pos, layer) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT;
@@ -51,7 +48,7 @@ public class TerrestriaClient implements ClientModInitializer {
 	}
 
 	private void addColoredGrass(Block grass) {
-		BlockRenderLayerMap.INSTANCE.putBlock(grass, GRASS_BLOCK_LAYER);
+		BlockRenderLayerMap.putBlock(grass, GRASS_BLOCK_LAYER);
 		ColorProviderRegistry.BLOCK.register(GRASS_BLOCK_COLORS, grass);
 	}
 }

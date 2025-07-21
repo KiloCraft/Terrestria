@@ -57,13 +57,13 @@ public class TerrestriaItems {
 	public static LogTurnerItem LOG_TURNER;
 
 	public static void init() {
-		REDWOOD = WoodItems.register("redwood", TerrestriaBlocks.REDWOOD);
-		HEMLOCK = WoodItems.register("hemlock", TerrestriaBlocks.HEMLOCK);
-		RUBBER = WoodItems.register("rubber", TerrestriaBlocks.RUBBER);
-		CYPRESS = WoodItems.register("cypress", TerrestriaBlocks.CYPRESS);
-		WILLOW = WoodItems.register("willow", TerrestriaBlocks.WILLOW);
-		RAINBOW_EUCALYPTUS = WoodItems.register("rainbow_eucalyptus", TerrestriaBlocks.RAINBOW_EUCALYPTUS);
-		YUCCA_PALM = WoodItems.register("yucca_palm", TerrestriaBlocks.YUCCA_PALM);
+		REDWOOD = WoodItems.register(TerrestriaBlocks.REDWOOD);
+		HEMLOCK = WoodItems.register(TerrestriaBlocks.HEMLOCK);
+		RUBBER = WoodItems.register(TerrestriaBlocks.RUBBER);
+		CYPRESS = WoodItems.register(TerrestriaBlocks.CYPRESS);
+		WILLOW = WoodItems.register(TerrestriaBlocks.WILLOW);
+		RAINBOW_EUCALYPTUS = WoodItems.register(TerrestriaBlocks.RAINBOW_EUCALYPTUS);
+		YUCCA_PALM = WoodItems.register(TerrestriaBlocks.YUCCA_PALM);
 
 		SAGUARO_CACTUS = TerrestriaRegistry.registerBlockItem("saguaro_cactus", TerrestriaBlocks.SAGUARO_CACTUS);
 

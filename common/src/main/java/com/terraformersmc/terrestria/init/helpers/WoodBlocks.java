@@ -1,31 +1,28 @@
 package com.terraformersmc.terrestria.init.helpers;
 
 import com.terraformersmc.terraform.leaves.api.block.ColoredParticleLeavesBlock;
-import com.terraformersmc.terraform.leaves.api.block.LeafPileBlock;
-import com.terraformersmc.terraform.leaves.api.block.TransparentLeavesBlock;
-import com.terraformersmc.terraform.sign.api.block.TerraformHangingSignBlock;
-import com.terraformersmc.terraform.sign.api.block.TerraformSignBlock;
-import com.terraformersmc.terraform.sign.api.block.TerraformWallHangingSignBlock;
-import com.terraformersmc.terraform.sign.api.block.TerraformWallSignBlock;
 import com.terraformersmc.terraform.wood.api.block.PillarLogHelper;
-import com.terraformersmc.terraform.wood.api.block.QuarterLogBlock;
 import com.terraformersmc.terraform.wood.api.block.SmallLogBlock;
 import com.terraformersmc.terrestria.Terrestria;
 import com.terraformersmc.terrestria.block.TerrestriaOptiLeavesBlock;
 import com.terraformersmc.terrestria.init.TerrestriaBlocks;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.*;
-import net.minecraft.particle.EntityEffectParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Identifier;
 
-import java.util.Optional;
-
+// TODO: Consider reverting to a record with builder object to enable config of things like
+//       BlockSetType, WoodType, flammability, and simplify the 'has', 'is, 'uses' args.
 public class WoodBlocks {
-	private final String NAME;
-	private final WoodColors COLORS;
-	private final LogSize SIZE;
+	private final String name;
+	private final Identifier id;
+	private final WoodColors colors;
+	private final LogSize size;
+
+	public final BlockSetType blockSetType;
+	public final WoodType woodType;
 
 	private final boolean tintable;
 
@@ -54,9 +51,13 @@ public class WoodBlocks {
 	private WoodBlocks(String name, WoodColors colors, LogSize size, boolean hasLeafPile, boolean hasQuarterLog, boolean usesExtendedLeaves, boolean isTintable) {
 		this.tintable = isTintable;
 
-		this.NAME = name;
-		this.COLORS = colors;
-		this.SIZE = size;
+		this.name = name;
+		this.id = Identifier.of(Terrestria.MOD_ID, name);
+		this.colors = colors;
+		this.size = size;
+
+		this.blockSetType = BlockSetTypeBuilder.copyOf(BlockSetType.OAK).register(id);
+		this.woodType = WoodTypeBuilder.copyOf(WoodType.OAK).register(id, this.blockSetType);
 
 		// register manufactured blocks
 
@@ -185,15 +186,19 @@ public class WoodBlocks {
 	}
 
 	public String getName() {
-		return NAME;
+		return name;
+	}
+
+	public Identifier getId() {
+		return id;
 	}
 
 	public WoodColors getColors() {
-		return COLORS;
+		return colors;
 	}
 
 	public LogSize getSize() {
-		return SIZE;
+		return size;
 	}
 
 //	public boolean hasQuarterLog() {

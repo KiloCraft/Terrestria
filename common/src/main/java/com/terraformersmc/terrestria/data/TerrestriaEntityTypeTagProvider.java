@@ -1,5 +1,6 @@
 package com.terraformersmc.terrestria.data;
 
+import com.terraformersmc.terraform.boat.api.data.TerraformBoatData;
 import com.terraformersmc.terrestria.init.TerrestriaItems;
 import com.terraformersmc.terrestria.init.helpers.WoodItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
